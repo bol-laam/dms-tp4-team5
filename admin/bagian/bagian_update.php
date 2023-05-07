@@ -6,9 +6,9 @@
 	{	
 	
 		$d1 = new database();
-		$d1->koneksidatabase();
+		$conn = $d1->koneksidatabase();
 	
-		$BagianUpdate = new bagian();
+		$BagianUpdate = new bagian($conn);
 		$BagianUpdate->setId_Bagian($_POST['id_bagian']);
 		$BagianUpdate->setNama_Bagian($_POST['nama_bagian']);
 		

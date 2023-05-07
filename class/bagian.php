@@ -3,54 +3,65 @@
 	{
 		private $id_bagian;
 		private $nama_bagian;
-		
+		private $conn;
+
+		function __construct($conn) {
+			$this->conn = $conn;
+		}
+
 		function setId_Bagian ($id_bagian)
 		{
 			$this->id_bagian = $id_bagian;
 		}
+
 		function setNama_Bagian ($nama_bagian)
 		{
 			$this->nama_bagian = $nama_bagian;
 		}
+
 		function getId_Bagian ()
 		{
-			return $id_bagian;
+			return $this->id_bagian;
 		}
+
 		function getNama_Bagian ()
 		{
-			return $nama_bagian;
+			return $this->nama_bagian;
 		}
+
 		function AddBagian ()
 		{
-			$sqlAddBagian = mysql_query ("INSERT INTO bagian VALUES ('$this->id_bagian','$this->nama_bagian')");
+			$sqlAddBagian = $this->conn->query("INSERT INTO bagian(nama_bagian) VALUES('$this->nama_bagian')");
 		}
+
 		function BagianList ()
 		{
-			$sqlBagianList = mysql_query ("SELECT * FROM bagian ORDER BY nama_bagian ASC");
-			while ($row = mysql_fetch_array ($sqlBagianList))
+			$sqlBagianList = $this->conn->query("SELECT * FROM bagian ORDER BY nama_bagian ASC");
+			while ($row = $sqlBagianList->fetch_assoc())
 			{
 				$data [] = $row;
 			}
 			return $data;
 		}
+
 		function findBagianById ($id)
 		{
-			$sqlEditBagian = mysql_query ("SELECT * FROM bagian WHERE id_bagian = '$id'");
-			while ($row = mysql_fetch_array ($sqlEditBagian))
+			$sqlEditBagian = $this->conn->query("SELECT * FROM bagian WHERE id_bagian = '$id'");
+			while ($row = $sqlEditBagian->fetch_assoc())
 			{
 				$data[] = $row;
 			}
-			return $data;			
+			return $data;         
 		}
+
 		function BagianUpdate ()
 		{
-			$sqlBagianUpdate = mysql_query ("UPDATE bagian SET nama_bagian ='$this->nama_bagian' WHERE id_bagian = '$this->id_bagian'");
+			$sqlBagianUpdate = $this->conn->query("UPDATE bagian SET nama_bagian ='$this->nama_bagian' WHERE id_bagian = '$this->id_bagian'");
 		}
+
 		function BagianDelete ($id)
 		{
-			$sqlBagianDelete = mysql_query ("DELETE FROM bagian WHERE id_bagian = '$id'");
+			$sqlBagianDelete = $this->conn->query("DELETE FROM bagian WHERE id_bagian = '$id'");
 		}
 	}
-
-
 ?>

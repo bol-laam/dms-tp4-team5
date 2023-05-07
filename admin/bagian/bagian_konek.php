@@ -2,13 +2,13 @@
 
 // memanggil koneksi database
 
-include "../../class/config.php";
-include "../../class/bagian.php";
+include_once "../../class/config.php";
+include_once "../../class/bagian.php";
 
 	$d1 = new database();
-	$d1->koneksidatabase();
+	$conn = $d1->koneksidatabase();
 	
-	$BagianList = new bagian();
+	$BagianList = new bagian($conn);
 	$BagianList->BagianList();
 	$DaftarBagian = $BagianList->BagianList();
 	

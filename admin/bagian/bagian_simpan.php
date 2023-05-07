@@ -11,9 +11,9 @@ include "../../class/bagian.php";
 	{
 		//buat objek bagian
 		$d1 = new database ();
-		$d1->koneksidatabase();
+		$conn = $d1->koneksidatabase();
 		
-		$AddBagian = new bagian ();
+		$AddBagian = new bagian($conn);
 		$AddBagian->setNama_Bagian($_POST["nama_bagian"]);
 		$AddBagian->AddBagian();
 		
