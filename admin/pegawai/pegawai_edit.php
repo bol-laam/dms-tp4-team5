@@ -98,8 +98,7 @@ include "../../class/bagian.php";
                 	<div class="col-md-7 col-md-offset-2">
                 		<input type="submit" class="btn btn-md btn-primary" name="update" value="Update" >
                         	
-                            <input type="reset" class="btn btn-danger" name="batal" value="batal">
-                            
+                        <a class="btn btn-danger" href="index.php" role="button">Batal</a>                       
                     	
                     </div>
                 </div>
