@@ -5,9 +5,9 @@ include "../class/barang.php";
 //include "../class/pemesanan.php";
 
 	$d1 = new database();
-	$d1->koneksidatabase();
+	$conn = $d1->koneksidatabase();
 	
-	$ROP = new barang();
+	$ROP = new barang($conn);
 	$ROP->ROP();
 	$TabelROP = $ROP->ROP();
 
