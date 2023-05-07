@@ -3,13 +3,13 @@
 	
 // memanggil koneksi database
 
-include "../../class/config.php";
-include "../../class/barang.php";
+include_once "../../class/config.php";
+include_once "../../class/barang.php";
 
 	$d1 = new database();
-	$d1->koneksidatabase();
+	$conn = $d1->koneksidatabase();
 	
-	$BarangList = new barang();
+	$BarangList = new barang($conn);
 	$BarangList->BarangList();
 	$DaftarBarang = $BarangList->BarangList();
 	

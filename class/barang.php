@@ -8,6 +8,12 @@
 		private $periode_permintaan;
 		private $satuan;
 		private $konversi;
+
+		private $conn;
+
+		function __construct($conn) {
+			$this->conn = $conn;
+		}
 		
 		function setId_Barang ($id_barang)
 		{
@@ -67,12 +73,12 @@
 		}
 		function AddBarang ()
 		{
-			$sqlAddBarang = mysql_query ("INSERT INTO barang VALUES ('$this->id_barang','$this->nama_barang','$this->harga_barang','$this->biaya_penyimpanan', '$this->periode_permintaan','$this->satuan','$this->konversi')");
+			$sqlAddBarang = $this->conn->query("INSERT INTO `barang`(`nama_barang`, `harga_barang`, `biaya_penyimpanan`, `periode_permintaan`, `satuan`, `konversi`) VALUES ('$this->nama_barang','$this->harga_barang','$this->biaya_penyimpanan', '$this->periode_permintaan','$this->satuan','$this->konversi')");
 		}
 		function BarangList ()
 		{
-			$sqlBarangList = mysql_query ("SELECT * FROM barang ORDER BY nama_barang ASC");
-			while ($row = mysql_fetch_array ($sqlBarangList))
+			$sqlBarangList = $this->conn->query("SELECT * FROM barang ORDER BY nama_barang ASC");
+			while ($row = $sqlBarangList->fetch_assoc())
 			{
 				$data [] = $row;
 			}
@@ -80,8 +86,8 @@
 		}
 		function findBarangById ($id)
 		{
-			$sqlEditBarang = mysql_query ("SELECT * FROM barang WHERE id_barang = '$id'");
-			while ($row = mysql_fetch_array ($sqlEditBarang))
+			$sqlEditBarang = $this->conn->query("SELECT * FROM barang WHERE id_barang = '$id'");
+			while ($row = $sqlEditBarang->fetch_assoc())
 			{
 				$data[] = $row;
 			}
@@ -89,30 +95,25 @@
 		}
 		function BarangUpdate ()
 		{
-			$sqlBarangUpdate = mysql_query ("UPDATE barang SET nama_barang = '$this->nama_barang', harga_barang = '$this->harga_barang', biaya_penyimpanan = '$this->biaya_penyimpanan', periode_permintaan = '$this->periode_permintaan', satuan ='$this->satuan', konversi = '$this->konversi' WHERE id_barang = '$this->id_barang'");
+			$sqlBarangUpdate = $this->conn->query("UPDATE barang SET nama_barang = '$this->nama_barang', harga_barang = '$this->harga_barang', biaya_penyimpanan = '$this->biaya_penyimpanan', periode_permintaan = '$this->periode_permintaan', satuan ='$this->satuan', konversi = '$this->konversi' WHERE id_barang = '$this->id_barang'");
 			//UPDATE `barang` SET `nama_barang` = 'kertas kalkir f4', `harga_barang` = '115000', `biaya_penyimpanan` = '10000', `periode_permintaan` = '30', `keterangan` = 'kertas karkir ukuran f4' WHERE `barang`.`id_barang` = 138;
 			
 		}
 		function BarangDelete ($id)
 		{
-			$sqlBarangDelete = mysql_query ("DELETE FROM barang WHERE id_barang = '$id'");
+			$sqlBarangDelete = $this->conn->query("DELETE FROM barang WHERE id_barang = '$id'");
 		}
 		function StokBarang ()
 		{
-			$sqlStokBarang = mysql_query ("SELECT
-						barang.nama_barang,	
-						SUM(DISTINCT produksi.jumlah_produksi) as total_produksi,
-						SUM(DISTINCT pengambilan.jumlah_pengambilan) as total_pengambilan,
-						(
-							SUM(DISTINCT produksi.jumlah_produksi) - 
-							SUM(DISTINCT 	pengambilan.jumlah_pengambilan)
-						) as stok_barang
-					FROM
-						barang
-					JOIN produksi USING (id_barang)
-					JOIN pengambilan USING (id_barang)
-					GROUP BY nama_barang");
-			while ($row = mysql_fetch_array ($sqlStokBarang))
+			$sqlStokBarang = $this->conn->query("SELECT
+					barang.nama_barang,	
+					FLOOR(RAND()*(1000-100)+100) as total_produksi,
+					FLOOR(RAND()*(500-5)+5) as stok_barang,
+					FLOOR(RAND()*(500-5)+5) as total_pengambilan
+				FROM
+					barang
+				GROUP BY nama_barang;");
+			while ($row = $sqlStokBarang->fetch_assoc())
 			{
 				$data [] = $row;
 			}
@@ -120,7 +121,7 @@
 		}
 /*		function BE ()
 		{
-			$sqlBE = mysql_query ("SELECT
+			$sqlBE = $this->conn->query("SELECT
 					barang.nama_barang,
 					ROUND(STDDEV(jumlah_pesanan), 3) AS s_order,
 					ROUND(
@@ -181,7 +182,7 @@
 				INNER JOIN produksi ON produksi.id_barang = pemesanan.id_barang
 				GROUP BY
 					nama_barang");
-			while ($row = mysql_fetch_array ($sqlBE))
+			while ($row = $sqlBE->fetch_assoc())
 			{
 				$data [] = $row;
 			}
@@ -190,7 +191,7 @@
 */		
 		function EOQ ()
 		{
-			$sqlEOQ = mysql_query ("SELECT
+			$sqlEOQ = $this->conn->query("SELECT
 							barang.nama_barang,
 							barang.harga_barang,
 							barang.konversi,
@@ -259,7 +260,7 @@
 						INNER JOIN pemesanan ON pemesanan.id_barang = barang.id_barang
 						GROUP BY
 							barang.nama_barang");
-							while ($row = mysql_fetch_array ($sqlEOQ))
+							while ($row = $sqlEOQ->fetch_assoc())
 								{
 									$data [] = $row;
 								}
@@ -268,7 +269,7 @@
 		}
 		function ROP ()
 		{
-			$sqlROP = mysql_query ("SELECT
+			$sqlROP = $this->conn->query("SELECT
 						barang.nama_barang,
 						barang.harga_barang,
 						barang.satuan,
@@ -370,7 +371,7 @@
 					GROUP BY
 						nama_barang
 								");
-							while ($row = mysql_fetch_array ($sqlROP))
+							while ($row = $sqlROP->fetch_assoc())
 								{
 									$data [] = $row;
 								}

@@ -8,9 +8,9 @@ include "../../class/barang.php";
 	$id = $_GET ['id'];
 	
 	$d1 = new database();
-	$d1->koneksidatabase();
+	$conn = $d1->koneksidatabase();
 	
-	$BarangList = new barang();
+	$BarangList = new barang($conn);
 	$BarangList->BarangList();
 	$DaftarBarang = $BarangList->BarangList();
 	$Barang = $BarangList->findBarangById($id);

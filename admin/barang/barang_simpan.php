@@ -11,9 +11,9 @@ include "../../class/barang.php";
 	{
 		//buat objek barang
 		$d1 = new database ();
-		$d1->koneksidatabase();
+		$conn = $d1->koneksidatabase();
 		
-		$AddBarang = new barang();
+		$AddBarang = new barang($conn);
 		$AddBarang->setNama_Barang($_POST['nama_barang']);
 		$AddBarang->setHarga_Barang($_POST['harga_barang']);
 		$AddBarang->setBiaya_Penyimpanan($_POST['biaya_penyimpanan']);

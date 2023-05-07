@@ -6,9 +6,9 @@
 	{	
 	
 		$d1 = new database();
-		$d1->koneksidatabase();
+		$conn = $d1->koneksidatabase();
 	
-		$BarangUpdate = new barang();
+		$BarangUpdate = new barang($conn);
 		$BarangUpdate->setId_Barang($_POST['id_barang']);
 		$BarangUpdate->setNama_Barang($_POST['nama_barang']);
 		$BarangUpdate->setHarga_Barang($_POST['harga_barang']);
