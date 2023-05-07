@@ -4,14 +4,14 @@
 	include "class/config.php";
 	include "class/user.php";
 	
-	$conn=new database();
-	$conn->koneksidatabase();
+	$db=new database();
+	$conn = $db->koneksidatabase();
 	
-	$u=new user();
+	$u=new user($conn);
 	$u->setUsername (trim(strip_tags($_POST["username"])));
 	$u->setPassword (trim(strip_tags($_POST["password"])));	
 	$data = $u->Authentication();
-	
+
 	if(!empty($data)){
 		foreach ($data as $key => $value) {
 
@@ -21,7 +21,7 @@
 			$_SESSION['bagian'] = $value['id_bagian'];
 			$_SESSION['nama'] = $value['nama_pegawai'];
 
-			if ($value['id_bagian'] == '7') // SILAHKAN MENYESUAIKAN PAK
+			if ($value['id_bagian'] == '1') // SILAHKAN MENYESUAIKAN PAK
 			{
 				// redirect berdasarkan level user
 				header("location:admin/index.php");
@@ -31,7 +31,7 @@
 				// redirect berdasarkan level user
 				header ("location:manager/index.php");
 			}
-			elseif($value['id_bagian'] == '9')
+			elseif($value['id_bagian'] == '12')
 			{
 				 //redirect berdasarkan level user
 				header ("location:gudang/index.php");
