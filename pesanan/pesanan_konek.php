@@ -10,13 +10,13 @@ include "../class/barang.php";
 
 	
 	$d1 = new database();
-	$d1->koneksidatabase();
+	$conn = $d1->koneksidatabase();
 	
-	$PesananList = new pemesanan ();
+	$PesananList = new pemesanan ($conn);
 	$PesananList->PesananList();
 	$DaftarPesanan = $PesananList->PesananList();
 		
-	$BarangList = new barang();
+	$BarangList = new barang($conn);
 	$BarangList->BarangList();
 	$DaftarBarang = $BarangList->BarangList();
 	

@@ -10,6 +10,11 @@ class pemesanan {
 	private $konversi;
 	private $lead_time;
 	private $pakai;
+    private $conn;
+
+    function __construct($conn) {
+        $this->conn = $conn;
+    }
 
     function setId_Pesanan($id_pesanan) {
         $this->id_pesanan = $id_pesanan;
@@ -61,11 +66,11 @@ class pemesanan {
     }
 
     function PesananTambah() {
-        $sqlPesananTambah = mysql_query("INSERT INTO pemesanan VALUES ('$this->id_pesanan', '$this->nama_pemesan', '$this->id_barang', '$this->jumlah_pesanan', '$this->lead_time','$this->pakai')");
+        $sqlPesananTambah = $this->conn->query("INSERT INTO pemesanan VALUES ('$this->id_pesanan', '$this->nama_pemesan', '$this->id_barang', '$this->jumlah_pesanan', '$this->lead_time','$this->pakai')");
     }
 
     function PesananList() {
-        $sqlPesananList = mysql_query("SELECT
+        $sqlPesananList = $this->conn->query("SELECT
 									pemesanan.id_pesanan,
 									pemesanan.nama_pemesan,
 									barang.nama_barang,
@@ -76,15 +81,15 @@ class pemesanan {
 									pemesanan.pakai,
 									pemesanan.jumlah_pesanan * barang.konversi AS 'jumlah_total'
 									FROM pemesanan JOIN barang USING (id_barang)");
-        while ($row = mysql_fetch_array($sqlPesananList)) {
+        while ($row = $sqlPesananList->fetch_assoc()) {
             $data [] = $row;
         }
         return $data;
     }
 	function GunaBarang ()
 	{
-		$sqlGunaBarang = mysql_query ("SELECT * FROM pemesanan");
-		while ($row = mysql_fetch_array ($sqlGunaBarang))
+		$sqlGunaBarang = $this->conn->query ("SELECT * FROM pemesanan");
+		while ($row = $sqlGunaBarang->fetch_assoc())
 			{
 				$data [] = $row;
 			}
@@ -93,15 +98,15 @@ class pemesanan {
 
     function PakaiBarangById($id) 
 	{
-        $sqlPakaiBarang = mysql_query("SELECT * FROM pemesanan WHERE id_pesanan = '$id'");
-        while ($row = mysql_fetch_array($sqlPakaiBarang)) {
+        $sqlPakaiBarang = $this->conn->query("SELECT * FROM pemesanan WHERE id_pesanan = '$id'");
+        while ($row = $sqlPakaiBarang->fetch_assoc()) {
             $data [] = $row;
         }
         return $data;
     }
 	function PakaiBarangUpdate ()
 	{
-		$sqlPakaiUpdate = mysql_query ("UPDATE pemesanan SET pakai = '$this->pakai' WHERE id_pesanan = '$this->id_pesanan'");
+		$sqlPakaiUpdate = $this->conn->query ("UPDATE pemesanan SET pakai = '$this->pakai' WHERE id_pesanan = '$this->id_pesanan'");
 	}
 
 }
