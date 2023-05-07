@@ -7,6 +7,12 @@
 		private $id_barang;
 		private $jumlah_pengambilan;
 		
+		private $conn;
+
+		function __construct($conn) {
+			$this->conn = $conn;
+		}
+
 		function setId_Pengambilan ($id_pengambilan)
 		{
 			$this->id_pengambilan = $id_pengambilan;
@@ -49,12 +55,12 @@
 		}
 		function AddAmbil_Barang ()
 		{
-			$sqlAmbilBarang = mysql_query ("INSERT INTO pengambilan VALUES ('$this->id_pengambilan', '$this->nama_pengambil',  '$this->id_barang', '$this->jumlah_pengambilan')");
+			$sqlAmbilBarang = $this->conn->query("INSERT INTO `pengambilan`(`nama_pengambil`, `id_barang`, `jumlah_pengambilan`) VALUES ('$this->nama_pengambil', '$this->id_barang', '$this->jumlah_pengambilan')");
 		}
 		function AmbilBarangList ()
 		{
-			$sqlAmbilBarangList = mysql_query ("SELECT pengambilan.nama_pengambil, barang.nama_barang, pengambilan.jumlah_pengambilan FROM pengambilan JOIN barang ON pengambilan.id_barang = barang.id_barang");
-			while ($row = mysql_fetch_array ($sqlAmbilBarangList))
+			$sqlAmbilBarangList = $this->conn->query("SELECT pengambilan.nama_pengambil, barang.nama_barang, pengambilan.jumlah_pengambilan FROM pengambilan JOIN barang ON pengambilan.id_barang = barang.id_barang");
+			while ($row = $sqlAmbilBarangList->fetch_assoc())
 			{
 				$data [] = $row;
 			}

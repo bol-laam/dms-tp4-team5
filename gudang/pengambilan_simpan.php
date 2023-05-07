@@ -5,9 +5,9 @@
 	if (isset ($_POST['simpan']));
 		{
 			$d1 = new database();
-			$d1->koneksidatabase();
+			$conn = $d1->koneksidatabase();
 			
-			$AddAmbilBarang = new pengambilan();
+			$AddAmbilBarang = new pengambilan($conn);
 			$AddAmbilBarang->setNama_Pengambil($_POST['nama_pengambil']);
 			$AddAmbilBarang->setId_Barang($_POST['id_barang']);
 			$AddAmbilBarang->setjumlah_pengambilan($_POST['jumlah_pengambilan']);
