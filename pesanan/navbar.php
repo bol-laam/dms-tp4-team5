@@ -11,7 +11,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#"> 
-				Thesisku
+				Toko ATK Jaya
 			</a>
 		</div>
 

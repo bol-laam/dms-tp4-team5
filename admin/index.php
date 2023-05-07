@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Thesisku</title>
+    <title>Toko ATK Jaya</title>
 
     <!-- Bootstrap -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
             <label for="vert-1"> EOQ </label>
             <div class="content">
 				<div class="col-md-7">
-				<img src="../gambar/big_thumb.jpg" />
+				<img src="../gambar/wp1.jpg" />
 				
 			</div>
 			</div>
