@@ -7,15 +7,15 @@ include "../../class/pegawai.php";
 include "../../class/bagian.php";
 
 	$d1 = new database();
-	$d1->koneksidatabase();
+	$conn = $d1->koneksidatabase();
 	
-	$PegawaiList = new pegawai();
+	$PegawaiList = new pegawai($conn);
 	$PegawaiList->PegawaiList();
 	$DaftarPegawai = $PegawaiList->PegawaiList();
 	
 	$i=1;
 	
-	$BagianList = new bagian ();
+	$BagianList = new bagian($conn);
 	$PegawaiList->PegawaiList();
 	$DaftarBagian = $BagianList->BagianList();
 

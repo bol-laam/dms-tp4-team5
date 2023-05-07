@@ -9,13 +9,13 @@ include "../../class/bagian.php";
 	$id = $_GET ['id'];
 	
 	$d1 = new database();
-	$d1->koneksidatabase();
+	$conn = $d1->koneksidatabase();
 	
-	$BagianList = new bagian();
+	$BagianList = new bagian($conn);
 	$BagianList->BagianList();
 	$DaftarBagian = $BagianList->BagianList();
 	
-	$PegawaiList = new pegawai();
+	$PegawaiList = new pegawai($conn);
 	$PegawaiList->PegawaiList();
 	$DaftarPegawai = $PegawaiList->PegawaiList();
 	$Pegawai = $PegawaiList->findPegawaiById($id);

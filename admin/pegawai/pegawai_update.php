@@ -6,9 +6,9 @@
 	{	
 	
 		$d1 = new database();
-		$d1->koneksidatabase();
+		$conn = $d1->koneksidatabase();
 
-		$PegawaiUpdate = new pegawai ();
+		$PegawaiUpdate = new pegawai($conn);
 		$PegawaiUpdate->setId_Pegawai($_POST['id_pegawai']);
 		$PegawaiUpdate->setUsername($_POST['username']);
 		$PegawaiUpdate->setPassword($_POST['password']);

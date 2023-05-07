@@ -5,9 +5,9 @@
 	if (isset($_GET['id']));
 	{
 		$d1 = new database ();
-		$d1->koneksidatabase();
+		$conn = $d1->koneksidatabase();
 		
-		$PegawaiDelete = new pegawai();
+		$PegawaiDelete = new pegawai($conn);
 		$PegawaiDelete->PegawaiDelete($_GET['id']);
 		
 		header ("location:index.php");

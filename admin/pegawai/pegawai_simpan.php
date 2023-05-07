@@ -11,9 +11,9 @@ include "../../class/pegawai.php";
 	{
 		//buat objek barang
 		$d1 = new database ();
-		$d1->koneksidatabase();
+		$conn = $d1->koneksidatabase();
 		
-		$AddPegawai = new pegawai ();
+		$AddPegawai = new pegawai($conn);
 		$AddPegawai->setUsername($_POST['username']);
 		$AddPegawai->setPassword($_POST['password']);
 		$AddPegawai->setNama_Pegawai($_POST['nama_pegawai']);

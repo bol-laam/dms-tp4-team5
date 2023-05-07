@@ -9,6 +9,12 @@
 		private $hp_pegawai;
 		private $id_bagian;
 		
+		private $conn;
+
+		function __construct($conn) {
+			$this->conn = $conn;
+		}
+
 		function setId_Pegawai ($id_pegawai)
 		{
 			$this->id_pegawai = $id_pegawai;
@@ -67,12 +73,12 @@
 		}
 		function AddPegawai ()
 		{
-			$sqlAddPegawai = mysql_query ("INSERT INTO pegawai VALUES ('$this->id_pegawai','$this->username', '$this->password', '$this->nama_pegawai', '$this->alamat_pegawai', '$this->hp_pegawai', '$this->id_bagian')");
+			$sqlAddPegawai = $this->conn->query("INSERT INTO `pegawai`(`username`, `password`, `nama_pegawai`, `alamat_pegawai`, `hp_pegawai`, `id_bagian`) VALUES ('$this->username', '$this->password', '$this->nama_pegawai', '$this->alamat_pegawai', '$this->hp_pegawai', '$this->id_bagian')");
 		}
 		function PegawaiList ()
 		{
-			$sqlPegawaiList = mysql_query ("SELECT id_pegawai, username, password, nama_pegawai, alamat_pegawai, hp_pegawai, nama_bagian FROM pegawai NATURAL JOIN bagian ORDER BY nama_pegawai ASC ");
-			while ($row = mysql_fetch_array ($sqlPegawaiList))
+			$sqlPegawaiList = $this->conn->query("SELECT id_pegawai, username, password, nama_pegawai, alamat_pegawai, hp_pegawai, nama_bagian FROM pegawai NATURAL JOIN bagian ORDER BY nama_pegawai ASC ");
+			while ($row = $sqlPegawaiList->fetch_assoc())
 			{
 				$data [] = $row;
 			}
@@ -80,8 +86,8 @@
 		}
 		function findPegawaiById ($id)
 		{
-			$sqlEditPegawai = mysql_query ("SELECT * FROM pegawai WHERE id_pegawai = '$id'");
-			while ($row = mysql_fetch_array ($sqlEditPegawai))
+			$sqlEditPegawai = $this->conn->query("SELECT * FROM pegawai WHERE id_pegawai = '$id'");
+			while ($row = $sqlEditPegawai->fetch_assoc())
 			{
 				$data[] = $row;
 			}
@@ -89,15 +95,15 @@
 		}
 		function PegawaiUpdate ()
 		{
-			$sqlPegawaiUpdate = mysql_query ("UPDATE pegawai SET username = '$this->username', password = '$this->password', nama_pegawai ='$this->nama_pegawai', alamat_pegawai = '$this->alamat_pegawai', hp_pegawai = '$this->hp_pegawai', id_bagian = '$this->id_bagian' WHERE id_pegawai = '$this->id_pegawai'");
+			$sqlPegawaiUpdate = $this->conn->query("UPDATE pegawai SET username = '$this->username', password = '$this->password', nama_pegawai ='$this->nama_pegawai', alamat_pegawai = '$this->alamat_pegawai', hp_pegawai = '$this->hp_pegawai', id_bagian = '$this->id_bagian' WHERE id_pegawai = '$this->id_pegawai'");
 		}
 		function PegawaiDelete ($id)
 		{
-			$sqlPegawaiDelete = mysql_query ("DELETE FROM pegawai WHERE id_pegawai = '$id'");
+			$sqlPegawaiDelete = $this->conn->query("DELETE FROM pegawai WHERE id_pegawai = '$id'");
 		}
 		function Welcome ()
 		{
-			$sqlWelcome = mysql_query ("SELECT nama_pegawai FROM pegawai");
+			$sqlWelcome = $this->conn->query("SELECT nama_pegawai FROM pegawai");
 		}		
 	}
 
