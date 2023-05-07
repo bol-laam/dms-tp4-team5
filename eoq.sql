@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 13, 2016 at 05:17 AM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.23
+-- Host: localhost
+-- Generation Time: May 07, 2023 at 06:10 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -39,7 +40,8 @@ INSERT INTO `bagian` (`id_bagian`, `nama_bagian`) VALUES
 (7, 'administrator'),
 (12, 'gudang'),
 (8, 'manajer'),
-(9, 'pesan ke supplier');
+(9, 'pesan ke supplier s'),
+(11, 'produksi');
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,8 @@ INSERT INTO `pegawai` (`id_pegawai`, `username`, `password`, `nama_pegawai`, `al
 (10, 'amir', 'amir', 'amir', 'semarang', '08080808', 8),
 (11, 'anin', 'anin', 'anin', 'semarang', '004859', 10),
 (14, 'sandi', 'sandi', 'sandi', 'semarang', '009', 9),
-(15, 'mini', 'mini', 'mini', 'semarang', '006', 11);
+(15, 'mini', 'mini', 'mini', 'semarang', '006', 11),
+(17, 'gudang', 'gudang', 'gudai', 'gudang', '08151515', 12);
 
 -- --------------------------------------------------------
 
@@ -196,6 +199,43 @@ INSERT INTO `pemesanan` (`id_pesanan`, `nama_pemesan`, `id_barang`, `jumlah_pesa
 (174, 'raja tulis', 138, '10', 3, '4000'),
 (175, 'deprintz', 138, '15', 3, '5000');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengambilan`
+--
+
+CREATE TABLE `pengambilan` (
+  `id_pengambilan` int(11) NOT NULL,
+  `nama_pengambil` varchar(255) NOT NULL,
+  `id_produksi` int(11) DEFAULT NULL,
+  `id_barang` int(11) NOT NULL,
+  `jumlah_pengambilan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengambilan`
+--
+
+INSERT INTO `pengambilan` (`id_pengambilan`, `nama_pengambil`, `id_produksi`, `id_barang`, `jumlah_pengambilan`) VALUES
+(1, 'tes', 10, 137, 10),
+(2, 'tes', NULL, 140, 100);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produksi`
+--
+
+CREATE TABLE `produksi` (
+  `id_produksi` int(11) NOT NULL,
+  `id_pesanan` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `jumlah_produksi` int(11) NOT NULL,
+  `lead_time` int(11) NOT NULL,
+  `proses` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -229,6 +269,18 @@ ALTER TABLE `pemesanan`
   ADD UNIQUE KEY `id_pesanan` (`id_pesanan`);
 
 --
+-- Indexes for table `pengambilan`
+--
+ALTER TABLE `pengambilan`
+  ADD PRIMARY KEY (`id_pengambilan`);
+
+--
+-- Indexes for table `produksi`
+--
+ALTER TABLE `produksi`
+  ADD PRIMARY KEY (`id_produksi`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -236,22 +288,39 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `bagian`
 --
 ALTER TABLE `bagian`
-  MODIFY `id_bagian` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_bagian` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id_barang` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pegawai` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
   MODIFY `id_pesanan` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+
+--
+-- AUTO_INCREMENT for table `pengambilan`
+--
+ALTER TABLE `pengambilan`
+  MODIFY `id_pengambilan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `produksi`
+--
+ALTER TABLE `produksi`
+  MODIFY `id_produksi` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
