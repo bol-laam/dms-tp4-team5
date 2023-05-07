@@ -8,10 +8,10 @@
 		
 		function koneksidatabase()
 		{
-			//koneksi ke database mysql
-			@mysql_pconnect($this->server, $this->username, $this->password) or die ("tidak ada koneksi database");
-			//memilih database di mysql
-			mysql_select_db ($this->database) or die ("database tidak ketemu");
+			$conn = new mysqli($this->server, $this->username, $this->password, $this->database);
+    		if ($conn->connect_error) {
+        		die("Connection failed: " . $conn->connect_error);
+    		}
 		}
 	}
 	$d1 = new database();
