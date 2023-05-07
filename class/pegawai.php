@@ -73,7 +73,7 @@
 		}
 		function AddPegawai ()
 		{
-			$sqlAddPegawai = $this->conn->query("INSERT INTO `pegawai`(`username`, `password`, `nama_pegawai`, `alamat_pegawai`, `hp_pegawai`, `id_bagian`) VALUES ('$this->username', '$this->password', '$this->nama_pegawai', '$this->alamat_pegawai', '$this->hp_pegawai', '$this->id_bagian')");
+			$sqlAddPegawai = $this->conn->query("INSERT INTO `pegawai`(`username`, `password`, `nama_pegawai`, `alamat_pegawai`, `hp_pegawai`, `id_bagian`) VALUES ('$this->username', MD5('$this->password'), '$this->nama_pegawai', '$this->alamat_pegawai', '$this->hp_pegawai', '$this->id_bagian')");
 		}
 		function PegawaiList ()
 		{

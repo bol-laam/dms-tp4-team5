@@ -24,7 +24,7 @@
 				die("Connection failed: " . $conn->connect_error);
 			}
 
-			$sql = "SELECT * FROM pegawai WHERE username = ? AND password = ?";
+			$sql = "SELECT * FROM pegawai WHERE username = ? AND password = MD5(?)";
 			$stmt = $conn->prepare($sql);
 			$stmt->bind_param("ss", $this->username, $this->password);
 			$stmt->execute();

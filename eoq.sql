@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 07, 2023 at 06:10 AM
+-- Generation Time: May 07, 2023 at 05:23 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.27
 
@@ -72,7 +72,7 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `harga_barang`, `biaya_penyimp
 (143, 'Kertas HVS Ex Tjiwi Kimia 65 x 100 3', '30550', '3000', '30', 'rim', '500'),
 (144, 'Kertas HVS Ex Tjiwi Kimia 65 x 100 4', '38200', '3000', '30', 'rim', '500'),
 (145, 'Kertas HVS Ex Tjiwi Kimia 79 x 109', '41000', '4100', '30', 'rim', '500'),
-(146, 'Tinta Cetak Offset ', '12000', '1200', '30', 'kaleng', '1'),
+(146, 'Tinta Cetak Offset s', '12000', '1200', '30', 'kaleng', '1'),
 (147, 'Laser Film A4', '15500', '2000', '30', 'lembar', '1'),
 (148, 'Laser Film F4', '18500', '2000', '30', 'lembar', '1'),
 (149, 'Laser Film A3', '27500', '3000', '30', 'lembar', '1');
@@ -86,7 +86,7 @@ INSERT INTO `barang` (`id_barang`, `nama_barang`, `harga_barang`, `biaya_penyimp
 CREATE TABLE `pegawai` (
   `id_pegawai` int(16) NOT NULL,
   `username` varchar(32) NOT NULL,
-  `password` varchar(16) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `nama_pegawai` varchar(32) NOT NULL,
   `alamat_pegawai` varchar(64) NOT NULL,
   `hp_pegawai` varchar(16) NOT NULL,
@@ -98,13 +98,13 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `username`, `password`, `nama_pegawai`, `alamat_pegawai`, `hp_pegawai`, `id_bagian`) VALUES
-(7, 'admin', 'admin', 'administrator', 'kantor', '085214021108', 1),
-(9, 'satria', 'admin', 'satria', 'semarang', '085214021108', 7),
-(10, 'amir', 'amir', 'amir', 'semarang', '08080808', 8),
-(11, 'anin', 'anin', 'anin', 'semarang', '004859', 10),
-(14, 'sandi', 'sandi', 'sandi', 'semarang', '009', 9),
-(15, 'mini', 'mini', 'mini', 'semarang', '006', 11),
-(17, 'gudang', 'gudang', 'gudai', 'gudang', '08151515', 12);
+(7, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'administrator', 'kantor', '085214021108', 1),
+(9, 'satria', '21232f297a57a5a743894a0e4a801fc3', 'satria', 'semarang', '085214021108', 7),
+(10, 'amir', '63eefbd45d89e8c91f24b609f7539942', 'amir', 'semarang', '08080808', 8),
+(11, 'anin', '9058e374a4ab7705d2283b33bf0f23ae', 'anin', 'semarang', '004859', 10),
+(14, 'sandi', 'ac9b4e0b6a21758534db2a6324d34a54', 'sandi', 'semarang', '009', 9),
+(15, 'mini', '44c6c370fd1859325f7119e96a81584e', 'mini', 'semarang', '006', 11),
+(17, 'gudang', '202446dd1d6028084426867365b0c7a1', 'gudai', 'gudang', '08151515', 12);
 
 -- --------------------------------------------------------
 
